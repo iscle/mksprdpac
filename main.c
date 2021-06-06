@@ -784,19 +784,19 @@ int main(int argc, char *argv[]) {
             },
     };
 
-    const FileParam **fp;
+    const FileParam *fp;
     int file_count;
     if (argv[7][0] == '\0' && argv[11][0] == '\0') {
-        fp = (const FileParam **) &fp1;
+        fp = fp1;
         file_count = 10;
     } else if (argv[7][0] != '\0' && argv[11][0] == '\0') {
-        fp = (const FileParam **) &fp2;
+        fp = fp2;
         file_count = 11;
     } else if (argv[7][0] == '\0' && argv[11][0] != '\0') {
-        fp = (const FileParam **) &fp3;
+        fp = fp3;
         file_count = 11;
     } else {
-        fp = (const FileParam **) &fp4;
+        fp = fp4;
         file_count = 12;
     }
 
@@ -806,11 +806,11 @@ int main(int argc, char *argv[]) {
     uint32_t offset = 2124 + (file_count * 2580);
 
     for (int i = 0; i < file_count; i++) {
-        writeFileInfoHeader(fd, fp[file_count], &offset);
+        writeFileInfoHeader(fd, &fp[file_count], &offset);
     }
 
     for (int i = 0; i < file_count; i++) {
-        writeDlFile(fd, fp[file_count]);
+        writeDlFile(fd, &fp[file_count]);
     }
     // End writing files
 
